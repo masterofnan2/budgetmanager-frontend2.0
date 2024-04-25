@@ -1,0 +1,203 @@
+.categories-container {
+    width: 100%;
+    padding: 1rem;
+}
+
+.categories-list {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+        text-align: start;
+        text-transform: uppercase;
+        padding: 1rem 0;
+        background-color: $bg-color;
+    }
+
+    td {
+        color: $secondary;
+        height: 5rem;
+        overflow: hidden;
+    }
+
+    tr {
+        cursor: pointer;
+        transition: background-color .3s ease-in-out;
+
+        &:nth-of-type(2n) {
+            background-color: $bg-color;
+        }
+
+        &:hover {
+            background-color: lighten($bg-color, 5%);
+        }
+    }
+
+    .category-icon {
+        width: 3rem;
+        height: 3rem;
+        background-color: $secondary;
+        border-radius: 50%;
+        margin: 0 auto;
+    }
+}
+
+.create-category {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    padding: 0;
+
+    i {
+        margin: 0 auto;
+        width: 1.5rem;
+        height: 1.5rem;
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.create-category-modal {
+    width: 75%;
+
+    .create-category-modal-header{
+        border-bottom: 1px solid rgba($secondary, .5);
+        padding-bottom: .5rem;
+    }
+
+    .create-category-modal-content {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-auto-rows: minmax(100px, auto);
+        gap: 1rem;
+        margin: 3rem 0;
+        color: rgba($light, .5);
+        $blockborder: 1px solid transparent;
+        // $blockborder: 1px solid rgba($light, .5);
+
+        .custom-input {
+            padding: 0 .5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            border: $blockborder;
+            transition: border-color .3s ease-in-out;
+            overflow: hidden;
+            background-color: rgba($dark, .5);
+
+            label {
+                font-size: 1rem;
+                font-weight: normal;
+                display: block;
+                position: absolute;
+                top: 0;
+            }
+
+            input {
+                display: block;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                color: rgba($light, .7);
+                max-width: 100%;
+                height: 100%;
+                font-size: 2rem;
+
+                &::placeholder {
+                    color: $success;
+                }
+            }
+
+            &:focus-within {
+                border-color: rgba($light, .7);
+            }
+        }
+
+        .category-name {
+            grid-column: 1/6;
+        }
+
+        .category-amount {
+            grid-column: 6/13;
+            display: flex;
+            position: relative;
+            // gap: 1rem;
+
+            .attributed-budget {
+                width: 50%;
+                background-color: rgba($secondary, .5);
+                padding: 0 .5rem;
+
+                h6 {
+                    font-size: 1rem;
+                    font-weight: normal;
+                }
+
+                .attributed-budget-circle {
+                    width: 50%;
+                    margin: .5rem auto;
+                }
+
+                .attributed-budget-circle+div {
+                    margin-top: 0 !important;
+                    top: 0;
+                }
+            }
+
+            .max-budget {
+                position: absolute;
+                right: .5rem;
+                bottom: .5rem;
+
+                small {
+                    font-weight: bold;
+                }
+
+                &::after {
+                    content: ' Ariary';
+                    font-size: .8rem;
+                    opacity: .8;
+                    font-weight: normal;
+                }
+            }
+        }
+
+        .category-icon {
+            grid-column: 1/6;
+            height: 150px;
+            background-color: rgba($dark, .5);
+
+            g{
+                fill: rgba($light, .5);
+            }
+        }
+
+        .category-description {
+            grid-column: 6/13;
+
+            input{
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .create-category-modal-footer {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        gap: 1rem;
+    }
+}
+
+.delete-dialog-modal {
+    small {
+        font-size: 1rem;
+    }
+}

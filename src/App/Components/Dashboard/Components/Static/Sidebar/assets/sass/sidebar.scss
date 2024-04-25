@@ -1,0 +1,65 @@
+.dashboard-sidebar {
+    padding: .7rem;
+
+    .navbar-brand {
+        text-align: center;
+
+        a {
+            text-decoration: none;
+            color: $secondary;
+            font-size: 1.4rem;
+            font-weight: lighter;
+        }
+    }
+
+    .sidebar-nav {
+        padding: 0;
+        height: calc(50% - 2rem);
+        margin-top: 20%;
+
+        li {
+            list-style: none;
+            width: 100%;
+            margin: 5% 0;
+
+            a {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                text-decoration: none;
+                color: $secondary;
+                padding: .5rem .7rem;
+                transition: background-color .3s ease-in-out, color .3s ease-in-out, transform .3s ease-in-out;
+                text-transform: capitalize;
+
+                i {
+                    transition: background-color .3s ease-in-out, color .3s ease-in-out;
+                    background-color: $success;
+                    border-radius: 50%;
+                    width: 2rem;
+                    height: 2rem;
+                    padding: .3rem;
+                }
+            }
+        }
+
+        li.active>a,
+        li:hover>a {
+            color: $light;
+        }
+
+        li.active>a {
+            background-color: $dark!important;
+            transform: scale(1.1);
+
+            i{
+                background-color: $primary;
+                color: black;
+            }
+        }
+
+        li:hover>a {
+            background-color: rgba($light, .1);
+        }
+    }
+}

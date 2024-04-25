@@ -1,0 +1,38 @@
+.imageInputDiv {
+    position: relative;
+
+    span {
+        position: absolute;
+        top: .5rem;
+        right: .5rem;
+        z-index: 2;
+        background-color: $dark;
+        border-radius: 50%;
+        padding: .2rem;
+    }
+
+    img {
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+.dragAndDropDescription {
+    i {
+        color: $light;
+    }
+}
+
+.imageInputDiv,
+.dragAndDrop {
+    cursor: pointer;
+    border-style: dashed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-color: inherit;
+    color: inherit;
+    overflow: hidden;
+    height: 100%;
+}

@@ -1,0 +1,115 @@
+$dropdownHeight: 2.5rem !default;
+$dropdownWidth: 8rem !default;
+
+@keyframes dropdownBodyFade {
+    0% {
+        transform: translateY(calc($dropdownHeight / -2));
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes dropdownBodyFadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(calc($dropdownHeight / -2));
+    }
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-container.show .dropdown-body {
+    display: block;
+}
+
+.dropdown-container.drop-end .dropdown-body {
+    left: unset;
+    right: 0;
+}
+
+.dropdown-container.drop-start .dropdown-body {
+    left: 0;
+    right: unset;
+}
+
+.dropdown-container.fading-out .dropdown-body {
+    animation: dropdownBodyFadeOut .4s ease-in-out;
+}
+
+.dropdown-container.fading-out>.dropdown-button::after {
+    transform: none !important;
+}
+
+.dropdown-body {
+    display: none;
+    animation: dropdownBodyFade .3s ease-in-out;
+    position: absolute;
+    background-color: $bg-color;
+    z-index: 2;
+    width: 200px;
+    min-height: 100px;
+    top: calc($dropdownHeight + .5rem);
+    left: calc(($dropdownWidth - 200px) / 2);
+    box-shadow: 0 0 0 .09rem rgba($light, .3);
+    padding: 0;
+    text-align: center;
+
+    li {
+        width: 100%;
+        list-style: none;
+        padding: .5rem 0;
+        transition: background-color .2s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba($light, .1);
+        }
+
+        &:active {
+            background-color: rgba($light, .5);
+        }
+    }
+}
+
+.dropdown-body > *{
+    border-bottom: 1px solid $success;
+}
+
+.dropdown-button {
+    overflow: hidden;
+    min-width: $dropdownWidth;
+    min-height: $dropdownHeight;
+    width: auto;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    &::after {
+        @extend %icon;
+        content: '';
+        opacity: .8;
+        transition: transform .3s ease-in-out, opacity .3s ease-in-out;
+        background-image: url(/src/App/others/minicomponents/Icon/assets/svgs/chevron-down.svg);
+    }
+}
+
+.dropdown-container.show>.dropdown-button {
+    &::after {
+        transform: rotate(-180deg);
+        opacity: 1;
+    }
+}

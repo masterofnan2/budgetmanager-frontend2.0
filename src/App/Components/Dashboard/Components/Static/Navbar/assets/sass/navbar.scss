@@ -1,0 +1,44 @@
+$dropdownHeight: 3rem;
+$dropdownWidth: 6rem;
+
+.dashboard-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 0 .7rem;
+}
+
+#logout-modal-dialog {
+    .modal-dialog-title {
+        h4 {
+            font-size: 1.4rem;
+            font-weight: lighter;
+        }
+
+        p {
+            color: $secondary;
+        }
+    }
+
+    .modal-content {
+        button {
+            position: absolute;
+            right: 1rem;
+            bottom: .5rem;
+            width: 25%;
+        }
+    }
+}
+
+#user-dropdown {
+    .user-profile {
+        display: block;
+        width: 2rem;
+        height: 2rem;
+        background-color: $primary;
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 1.2rem;
+        text-transform: capitalize;
+    }
+}

@@ -1,0 +1,103 @@
+$colors: (
+    "default": ("button-background-color": transparent,
+        "button-color": $light ),
+    "primary": ("button-background-color": $primary,
+        "button-color": $dark ),
+    "danger": ("button-background-color": $danger,
+        "button-color": $light),
+    "secondary": ("button-background-color": $secondary,
+        "button-color": $light),
+);
+
+@mixin button-style($type: "default") {
+    $button-background-color: map-get(map-get($colors, $type), "button-background-color");
+    $button-color: map-get(map-get($colors, $type), "button-color");
+
+    background-color: $button-background-color;
+    color: $button-color;
+
+    &.dropdown-button::after {
+        @if($button-background-color !=transparent) {
+            @if(lightness($button-background-color) > 50%) {
+                filter: invert(100%);
+            }
+        }
+    }
+}
+
+.btn {
+    @include button-style;
+
+    text-decoration: none;
+    padding: 0 1rem;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    opacity: .8;
+    position: relative;
+    transition: opacity .1s ease-in-out, box-shadow .3s ease-in-out;
+    font-size: 1.1rem;
+    height: 2.2rem;
+
+    i:first-child {
+        opacity: .8;
+    }
+
+    &:hover {
+        opacity: .9;
+    }
+
+    &:active {
+        transform: scale(1.02);
+        opacity: 1;
+    }
+
+    &:disabled {
+        opacity: .7;
+        pointer-events: none;
+    }
+
+    .spinner {
+        position: absolute;
+        right: 5%;
+        top: .8rem;
+    }
+}
+
+.btn-primary {
+    @include button-style('primary');
+
+    &:focus {
+        box-shadow: 0 0 0 .1rem $light;
+    }
+
+    @extend .btn;
+}
+
+.btn-secondary {
+    @include button-style('secondary');
+
+    &:focus {
+        box-shadow: 0 0 0 .1rem $light;
+    }
+
+    @extend .btn;
+}
+
+.btn-danger {
+    @include button-style('danger');
+
+    &:focus {
+        box-shadow: 0 0 0 .1rem $light;
+    }
+
+    @extend .btn;
+}
+
+.btn-sm {
+    @extend .btn;
+    font-size: .9rem;
+    height: 2rem;
+}

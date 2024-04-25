@@ -1,0 +1,70 @@
+@keyframes modalContainerFade {
+    0% {
+        background-color: transparent;
+    }
+
+    100% {
+        background-color: rgba($dark, .7);
+    }
+}
+
+@keyframes modalBodyFade {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    90% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+.modal-container {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba($dark, .7);
+    animation: modalContainerFade .5s ease-in-out;
+    transition: background-color .5s ease-in-out;
+
+    .modal-body {
+        position: relative;
+        min-width: 50%;
+        min-height: 20%;
+        background-color: $bg-color;
+        transition: transform .5s ease-in-out, opacity .5s ease-in-out;
+        cursor: auto;
+        padding: .5rem 1rem;
+    }
+}
+
+.modal-container.show {
+    display: flex;
+
+    .modal-body {
+        animation: modalBodyFade .5s ease-in-out;
+    }
+}
+
+.modal-container.hiding {
+    background-color: transparent;
+    pointer-events: none;
+
+    .modal-body {
+        transform: scale(0);
+        opacity: 0;
+    }
+}

@@ -1,0 +1,68 @@
+.floating-form-group {
+    position: relative;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+
+    label {
+        position: absolute;
+        z-index: 1;
+        font-size: 1.1rem;
+        top: .6rem;
+        left: 1rem;
+        pointer-events: none;
+        background-color: $dark;
+        padding: 0 .3rem;
+        transition: transform .1s ease-in-out, color .1s ease-in-out;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+
+        i {
+            margin-top: .2rem;
+        }
+    }
+
+    .form-control:focus+label,
+    .form-control:not(:placeholder-shown)+label {
+        transform: translateY(-1.6rem);
+        color: $secondary;
+        font-size: .9rem;
+        padding: 0 .3rem;
+    }
+
+    .form-control.is-invalid+label {
+        color: $danger;
+    }
+
+    input[type="text"]~.show-password.visible {
+        opacity: 1;
+    }
+
+    .show-password {
+        position: absolute;
+        right: .5rem;
+        top: .4rem;
+        width: 10%;
+        height: 2rem;
+        background-color: transparent;
+        pointer-events: none;
+        border: none;
+        box-shadow: none;
+        outline: none;
+        opacity: 0;
+        transition: opacity .3s ease-in-out;
+
+        &.visible {
+            opacity: .5;
+            pointer-events: all;
+            cursor: pointer;
+        }
+    }
+
+    .invalid-feedback {
+        color: $danger;
+    }
+}
