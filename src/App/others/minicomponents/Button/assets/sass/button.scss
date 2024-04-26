@@ -1,3 +1,13 @@
+@keyframes spinnerAnimator {
+    0% {
+        transform: scale(.5);
+    }
+
+    100% {
+        transform: scale(1.5);
+    }
+}
+
 $colors: (
     "default": ("button-background-color": transparent,
         "button-color": $light ),
@@ -59,10 +69,15 @@ $colors: (
         pointer-events: none;
     }
 
-    .spinner {
+    .button-loading-spinner {
         position: absolute;
         right: 5%;
-        top: .8rem;
+        top: .6rem;
+        animation: spinnerAnimator .3s ease-in-out infinite alternate-reverse;
+
+        svg{
+            fill: none
+        }
     }
 }
 

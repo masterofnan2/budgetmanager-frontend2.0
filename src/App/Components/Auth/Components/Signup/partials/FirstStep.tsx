@@ -26,7 +26,7 @@ const FirstStep = (props: Props) => {
         loading: false
     });
 
-    const handleSubmit = React.useCallback((e: FormEvent) => {
+    const handleSubmit = React.useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = getFormData(e) as { email: string };
         const validationMessages: ValidationMessages | null = getValidationMessages(formData);
@@ -40,6 +40,7 @@ const FirstStep = (props: Props) => {
                         const newState = { ...s };
 
                         newState.loading = false;
+                        
                         if (response.error?.errors) {
                             newState.validationMessages = response.error.errors;
                         }

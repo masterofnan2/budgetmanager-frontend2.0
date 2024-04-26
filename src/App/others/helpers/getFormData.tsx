@@ -1,13 +1,16 @@
+import { FormEvent } from "react";
+
 /**
  * Permet de convertir le contenu d'un formulaire en JS Object à partir de son attribut `name`
  * @param {*} event l'évennement qui résulte de la submission du formulaire
  * @returns {Object} les données du formulaire formatées en JS Object
  */
-
-import { FormEvent } from "react";
+type formData = {
+    [key: string]: string
+};
 
 const getFormData = (event: FormEvent<HTMLFormElement>) => {
-    let formData = {};
+    let formData: formData = {};
 
     const inputsCount = event.target?.length;
 

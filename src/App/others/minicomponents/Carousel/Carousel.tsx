@@ -1,7 +1,14 @@
 import React from "react";
 
-const Carousel = React.forwardRef((props, ref) => {
-    const { children, withCarouselList, cycle, onActiveChange } = props;
+type Props = {
+    children: React.JSX.Element | React.JSX.Element[],
+    withCarouselList?: boolean,
+    cycle?: number,
+    onActiveChange?: Function
+}
+
+const Carousel = React.forwardRef((props: Props, ref: any) => {
+    const { children, withCarouselList = false, cycle, onActiveChange } = props;
 
     const [state, setState] = React.useState({
         active: 1,
@@ -9,7 +16,7 @@ const Carousel = React.forwardRef((props, ref) => {
         position: 0
     });
 
-    const carouselElementsRef = React.useRef();
+    const carouselElementsRef = React.useRef() as any;
 
     const jumpTo = React.useCallback((number: number) => {
         if (number > 0 && state.carouselElementsCount >= number) {
@@ -17,14 +24,6 @@ const Carousel = React.forwardRef((props, ref) => {
             onActiveChange && onActiveChange(number);
         }
     }, [state.carouselElementsCount]);
-
-    const previous = React.useCallback(() => {
-        if (state.active > 1) {
-            jumpTo(state.active - 1);
-        } else {
-            jumpTo(state.carouselElementsCount);
-        }
-    }, [state.active, state.carouselElementsCount]);
 
     const next = React.useCallback(() => {
         if (state.active < state.carouselElementsCount) {
@@ -89,8 +88,16 @@ const Carousel = React.forwardRef((props, ref) => {
     </div>
 });
 
-export const CarouselElement = ({ children, style = {} }) => {
-    return <div className="carousel-element" style={style}>
+type CarouselElementProps = {
+    children: React.JSX.Element | React.JSX.Element[],
+    style?: { [key: string]: number | string },
+    className?: string
+};
+
+export const CarouselElement = (props: CarouselElementProps) => {
+    const { children, style = {}, className = '' } = props;
+
+    return <div className={"carousel-element " + className} style={style}>
         {children}
     </div>
 }

@@ -51,7 +51,7 @@ const Countdown = React.memo((props: Props) => {
             visible={countdown === 0}>
             <Button
                 type="button"
-                className="btn-primary col-4 mt-2"
+                className="btn-primary mt-2"
                 onClick={handleResendCode}>Re-send code</Button>
         </Fade>
     </div>

@@ -4,7 +4,7 @@ type Object = {
 
 export type Response = {
     data: Object|null,
-    error: Object|string|null,
+    error: any,
     status: number
 };
 

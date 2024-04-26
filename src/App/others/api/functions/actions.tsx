@@ -51,3 +51,15 @@ export const matchConfirmationCode = (code: string): Promise<Response> => {
 export const deleteCategory = (id: number): Promise<Response> => {
     return fetchApi('/category/delete/' + id, "DELETE");
 }
+
+export const forgetPassword = (email: string) => {
+    return fetchApi('/auth/forgotten-password', "POST", { email });
+}
+
+export const resetPassword = (payload: {
+    password: string,
+    password_confirmation: string,
+    token: string
+}) => {
+    return fetchApi('/auth/reset-password', "POST", payload);
+}

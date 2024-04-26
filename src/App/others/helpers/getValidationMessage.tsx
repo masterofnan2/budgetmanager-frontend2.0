@@ -33,6 +33,14 @@ const getValidationMessage = (type: string, value: string): string | null => {
             }
             break;
 
+        case "password_confirmation":
+            if (!value) {
+                message = "The password is required";
+            } else if (value.length < 6) {
+                message = "The password length should be at least 6 caracters";
+            }
+            break;
+
         case "prix":
             const price = parseFloat(value);
 

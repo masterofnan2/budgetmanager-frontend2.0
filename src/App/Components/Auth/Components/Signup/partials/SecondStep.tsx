@@ -18,7 +18,7 @@ const SecondStep = (props: Object) => {
         validationMessages: null as Object | null
     });
 
-    const handleSubmit = React.useCallback((e: FormEvent) => {
+    const handleSubmit = React.useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const formData = getFormData(e);

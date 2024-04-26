@@ -1,45 +1,74 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useSelector from "../storage/core/useSelector";
 import { User } from "../constants/dataTypes";
 
-type SessionIntended = { aim: null | boolean, path: string } | null
+type SessionIntended = { target: null | boolean, path: string }
 
-export function useRedirect(aim: boolean): void {
+const emailConfirmation = '/auth/confirmation';
+const loginPage = '/auth/login';
+const authPage = '/dashboard';
 
-    const navigate = useNavigate();
-    const location = useLocation();
-    const currentPath = location.pathname;
+const notApplicablePaths = [
+    emailConfirmation,
+    loginPage,
+    authPage
+];
 
+function setSessionIntended(pathname: string, target: boolean) {
+    const intended = {
+        path: pathname,
+        target
+    }
+
+    sessionStorage.setItem('intended', JSON.stringify(intended));
+}
+
+function goToIntended(path: string, navigate: Function) {
+    sessionStorage.removeItem('intended');
+    navigate(path);
+}
+
+function getSessionIntended(): SessionIntended | null {
     const existingIntended: null | string = sessionStorage.getItem('intended');
-
     const sessionIntended: SessionIntended = existingIntended && JSON.parse(existingIntended);
+
+    return sessionIntended;
+}
+
+export function useRedirect(target: boolean): Function {
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const user = useSelector(state => state.user) as User;
     const userAuthenticated = Boolean(user);
+    const sessionIntended = getSessionIntended();
 
-    useEffect(() => {
-        if (userAuthenticated !== aim) {
-            const intended = {
-                path: currentPath,
-                aim
-            }
-            sessionStorage.setItem('intended', JSON.stringify(intended));
-        }
-    }, [userAuthenticated, aim, currentPath]);
-
-    useEffect(() => {
-        if (user && user.email_verified_at === null) {
-            location.pathname !== '/auth/confirmation' && navigate('/auth/confirmation');
+    const redirect = useCallback(() => {
+        if (sessionIntended?.target === userAuthenticated) {
+            goToIntended(sessionIntended.path, navigate);
         } else {
-            if (userAuthenticated !== aim) {
-                if (sessionIntended && sessionIntended.aim === userAuthenticated) {
-                    sessionStorage.removeItem('intended');
-                    navigate(sessionIntended.path);
-                } else {
-                    navigate(aim ? '/auth/login' : '/dashboard');
-                }
+            target ? navigate(loginPage) : navigate(authPage);
+        }
+    }, [sessionIntended, userAuthenticated, navigate, target]);
+
+    useEffect(() => {
+        if (userAuthenticated !== target && !notApplicablePaths.includes(location.pathname)) {
+            setSessionIntended(location.pathname, target);
+        }
+    }, [target, location.pathname]);
+
+    useEffect(() => {
+        if (user?.email_verified_at === null && location.pathname !== emailConfirmation) {
+            navigate(emailConfirmation);
+        } else if (user?.email_verified_at && location.pathname === emailConfirmation) {
+            redirect()
+        } else {
+            if (userAuthenticated !== target) {
+                redirect()
             }
         }
-    }, [userAuthenticated, aim, sessionIntended, navigate, user]);
+    }, [userAuthenticated, user, location.pathname, target]);
+
+    return redirect;
 }

@@ -7,15 +7,24 @@ import { logIn } from "../../../../others/api/functions/actions";
 import handleInputBlur from "../../../../others/helpers/handleInputBlur";
 import getValidationMessages from "../../../../others/helpers/getValidationMessages";
 import Fade from "../../../../others/minicomponents/Fade/Fade";
+import useDispatch from "../../../../others/storage/core/useDispatch";
+import { setAuth } from "../../../../others/storage/parts/user/actions";
+
+type ValidationMessages = {
+    email?: string | string[],
+    password?: string | string[]
+}
 
 const Login = () => {
     const [state, setState] = React.useState({
         loading: false,
-        validationMessages: null as Object | null,
+        validationMessages: null as ValidationMessages | null,
         credentialsWereWrongOnce: false
     });
 
-    const handleSubmit = React.useCallback((e: FormEvent) => {
+    const dispatch = useDispatch();
+
+    const handleSubmit = React.useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const formData = getFormData(e) as { email: string, password: string };
@@ -30,7 +39,7 @@ const Login = () => {
 
         if (!validationMessages) {
             logIn(formData)
-                .then(response => {
+                .then((response) => {
                     setState(s => {
                         const newState = { ...s };
 
@@ -38,6 +47,7 @@ const Login = () => {
                             newState.validationMessages = response.error.errors;
                             newState.credentialsWereWrongOnce = Boolean(response.error.errors);
                         }
+
                         newState.loading = false;
 
                         return newState;
@@ -45,9 +55,8 @@ const Login = () => {
 
                     if (response.data?.user && response.data?.token) {
                         localStorage.setItem('authToken', response.data.token);
-                        location.reload();
+                        dispatch(setAuth(response.data.user));
                     }
-
                 });
         }
     }, []);

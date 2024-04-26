@@ -6,6 +6,7 @@ type Props = {
     className?: string,
     onClick?: Function,
     onFocus?: Function,
+    disabled?: boolean,
     id?: string,
     style?: { [key: string]: any },
     [key: string]: any,
@@ -23,7 +24,7 @@ const Button = (props: Props) => {
         disabled={props.disabled || options?.loading}>
         {props.children}
         {options?.loading &&
-            <Icon>spinner</Icon>}
+            <Icon className="button-loading-spinner">spinner</Icon>}
     </button>
 }
 

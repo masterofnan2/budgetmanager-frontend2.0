@@ -1,3 +1,4 @@
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import AuthRoutes from "./AuthRoutes";
 import GuestRoutes from "./GuestRoutes";
@@ -5,7 +6,6 @@ import Auth from "../../Components/Auth/Auth";
 import Login from "../../Components/Auth/Components/Login/Login";
 import Signup from "../../Components/Auth/Components/Signup/Signup";
 import Home from "../../Components/Home/Home";
-import React from "react";
 import Dashboard from "../../Components/Dashboard/Dashboard";
 import Overview from "../../Components/Dashboard/Components/Dynamic/Overview/Overview";
 import Budget from "../../Components/Dashboard/Components/Dynamic/Budget/Budget";
@@ -15,12 +15,13 @@ import Confirmation from "../../Components/Auth/Components/Confirmation/Confirma
 import { User } from "../constants/dataTypes";
 import useAuthenticateUser from "../api/hooks/useAuthenticateUser";
 import PasswordForgotten from "../../Components/Auth/Components/PasswordForgotten/PasswordForgotten";
+import ResetPassword from "../../Components/Auth/Components/ResetPassword/ResetPassword";
 
-const AppRoutes = () => {
+const AppRoutes = React.memo(() => {
 
     const user = useSelector(state => state.user) as User;
     const authenticate = useAuthenticateUser();
-    
+
     React.useEffect(() => {
         (user === null) && authenticate();
     }, [user]);
@@ -44,10 +45,11 @@ const AppRoutes = () => {
                     <Route element={<Login />} path="login" />
                     <Route element={<Signup />} path="signup" />
                     <Route element={<PasswordForgotten />} path="password-forgotten" />
+                    <Route element={<ResetPassword />} path="password-reset/:token" />
                 </Route>
             </Route>
         </Routes>
     }
-}
+})
 
 export default AppRoutes;
