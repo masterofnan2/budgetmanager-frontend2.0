@@ -1,6 +1,6 @@
 
 import React from "react";
-import getElementProps from "../../helpers/getElementProps";
+import getElementProps from "../../globals/helpers/getElementProps";
 import iconsMap from "./assets/constants/iconsMap";
 
 type DynamicObject = { [key: string]: string | number };

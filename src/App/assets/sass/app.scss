@@ -27,7 +27,7 @@ a {
     color: $primary;
 }
 
-small{
+small {
     font-size: .9rem;
 }
 
@@ -82,13 +82,13 @@ small{
     align-self: center;
 }
 
-.text-align-center{
+.text-align-center {
     text-align: center;
 }
 
 @for $i from 1 through 5 {
     .display-#{$i} {
-        font-size: (1/$i * 4rem);
+        font-size: calc(1 / $i * 4rem);
         font-weight: lighter;
         line-height: 1;
     }
@@ -96,113 +96,113 @@ small{
 
 @for $i from 0 through 5 {
     .gap-#{$i} {
-        gap: ($i * .5rem);
+        gap: calc($i * .5rem);
     }
 }
 
 @for $i from 0 through 5 {
     .m-#{$i} {
-        margin: ($i * .5rem);
+        margin: calc($i * .5rem);
     }
 }
 
 @for $i from 0 through 5 {
     .mt-#{$i} {
-        margin-top: ($i * .5rem);
+        margin-top: calc($i * .5rem);
     }
 }
 
 @for $i from 0 through 5 {
     .mb-#{$i} {
-        margin-bottom: ($i * .5rem);
+        margin-bottom: calc($i * .5rem);
     }
 }
 
 @for $i from 0 through 5 {
     .ms-#{$i} {
-        margin-left: ($i * .5rem);
+        margin-left: calc($i * .5rem);
     }
 }
 
 @for $i from 0 through 5 {
     .me-#{$i} {
-        margin-right: ($i * .5rem);
+        margin-right: calc($i * .5rem);
     }
 }
 
 @for $i from 0 through 5 {
     .my-#{$i} {
-        margin-top: ($i * .5rem);
-        margin-bottom: ($i * .5rem);
+        margin-top: calc($i * .5rem);
+        margin-bottom: calc($i * .5rem);
     }
 }
 
 @for $i from 0 through 5 {
     .mx-#{$i} {
-        margin-left: ($i * .5rem);
-        margin-right: ($i * 5rem);
+        margin-left: calc($i * .5rem);
+        margin-right: calc($i * 5rem);
     }
 }
 
 @for $i from 0 through 5 {
     .p-#{$i} {
-        padding: ($i * .5rem) !important;
+        padding: calc($i * .5rem) !important;
     }
 }
 
 @for $i from 0 through 5 {
     .pt-#{$i} {
-        padding-top: ($i * .5rem) !important;
+        padding-top: calc($i * .5rem) !important;
     }
 }
 
 @for $i from 0 through 5 {
     .pb-#{$i} {
-        padding-bottom: ($i * .5rem) !important;
+        padding-bottom: calc($i * .5rem) !important;
     }
 }
 
 @for $i from 0 through 5 {
     .ps-#{$i} {
-        padding-left: ($i * .5rem) !important;
+        padding-left: calc($i * .5rem) !important;
     }
 }
 
 @for $i from 0 through 5 {
     .pe-#{$i} {
-        padding-right: ($i * .5rem) !important;
+        padding-right: calc($i * .5rem) !important;
     }
 }
 
 @for $i from 0 through 5 {
     .py-#{$i} {
-        padding-top: ($i * .5rem) !important;
-        padding-bottom: ($i * .5rem) !important;
+        padding-top: calc($i * .5rem) !important;
+        padding-bottom: calc($i * .5rem) !important;
     }
 }
 
 @for $i from 0 through 5 {
     .px-#{$i} {
-        padding-left: ($i * .5rem) !important;
-        padding-right: ($i * 5rem) !important;
+        padding-left: calc($i * .5rem) !important;
+        padding-right: calc($i * 5rem) !important;
     }
 }
 
 @for $i from 1 through 10 {
     .w-#{$i}0 {
-        width: ($i * 10%) !important;
+        width: calc($i * 10%) !important;
     }
 }
 
 @for $i from 1 through 10 {
     .h-#{$i}0 {
-        height: ($i * 10%) !important;
+        height: calc($i * 10%) !important;
     }
 }
 
 @for $i from 0 through 12 {
     .col-#{$i} {
-        width: (100% / 12) * $i !important;
+        width: calc(100% / 12) * $i !important;
     }
 }
 
@@ -223,7 +223,7 @@ small{
 }
 
 .text-danger {
-    color: $danger!important;
+    color: $danger !important;
 }
 
 .text-success {

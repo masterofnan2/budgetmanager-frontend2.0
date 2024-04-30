@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../Button/Button";
-import getElementProps from "../../helpers/getElementProps";
+import getElementProps from "../../globals/helpers/getElementProps";
 
 type DropdownProps = {
     id: string,

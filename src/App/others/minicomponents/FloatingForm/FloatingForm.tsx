@@ -1,5 +1,5 @@
 import React from "react"
-import getElementProps from "../../helpers/getElementProps";
+import getElementProps from "../../globals/helpers/getElementProps";
 import Icon from "../Icon/Icon";
 
 type Props = {

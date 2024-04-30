@@ -7,26 +7,37 @@ import { toggle } from "../../../../../others/minicomponents/Modal/Modal";
 import DeleteDialog from "./Components/DeleteDialog";
 import Fade from "../../../../../others/minicomponents/Fade/Fade";
 import { Category } from "../../../../../others/constants/dataTypes";
-import { deleteCategory } from "../../../../../others/api/functions/actions";
-import useToasts from "../../../../../others/minicomponents/Toast/assets/hooks/useToasts";
+import EditCategory from "./Components/EditCategory";
+import useRefreshAvailableCategoryBudget from "../../../../../others/api/hooks/useRefreshAvailableCategoryBudget";
+import { useRefreshDefaultBudget } from "../../../../../others/api/hooks/useRefreshDefaultBudget";
 
 export const DELETEDIALOGID = 'delete-dialog-modal';
-let deleteDialogElement: null | HTMLElement;
+export const EDITMODALID = 'edit-category-modal';
+export const CREATEMODALID = 'add-category-modal';
 
 export const toggleDeleteDialog = () => {
-    if (!deleteDialogElement) {
-        deleteDialogElement = document.getElementById(DELETEDIALOGID);
-    }
-
+    const deleteDialogElement = document.getElementById(DELETEDIALOGID);
     deleteDialogElement && toggle(deleteDialogElement);
 };
+
+export const toggleEditDialog = () => {
+    const editDialogElement = document.getElementById(EDITMODALID);
+    editDialogElement && toggle(editDialogElement);
+}
+
+export const toggleCreateModal = () => {
+    const createModalElement = document.getElementById(CREATEMODALID);
+    createModalElement && toggle(createModalElement);
+}
 
 const CategoriesContext = React.createContext({
     onDelete: {
         category: null as Category | null,
-        initDeletion: () => { },
-        set: (category: Category) => { category },
-        loading: false,
+        set: (category: Category | null) => { category }
+    },
+    onEdit: {
+        category: null as Category | null,
+        set: (category: Category | null) => { category }
     }
 });
 
@@ -35,69 +46,71 @@ export const useDeleteCategory = () => {
     return onDelete;
 }
 
+export const useEditCategory = () => {
+    const { onEdit } = React.useContext(CategoriesContext);
+    return onEdit;
+}
+
 const Categories = React.memo(() => {
     const categories = useSelector(state => state.category);
+    const { availableCategoryBudget, defaultBudget } = useSelector(state => state.budget);
+
     const refreshCategories = useRefreshCategories();
-    const toast = useToasts();
+    const refreshAvailableCategoryBudget = useRefreshAvailableCategoryBudget();
+    const refreshDefaultBudget = useRefreshDefaultBudget();
 
     const [state, setState] = React.useState({
         onDelete: {
-            loading: false,
+            category: null as Category | null
+        },
+        onEdit: {
             category: null as Category | null
         }
     });
 
+    const onDelete = React.useMemo(() => ({
+        category: state.onDelete.category,
+        set: (category: Category | null) => {
+            setState(s => ({ ...s, onDelete: { ...s.onDelete, category } }));
+        }
+    }), [state.onDelete]);
+
+    const onEdit = React.useMemo(() => ({
+        category: state.onEdit.category,
+        set: (category: Category | null) => {
+            setState(s => ({ ...s, onEdit: { ...s.onEdit, category } }));
+        }
+    }), [state.onEdit]);
+
+    const contextValue = React.useMemo(() => ({
+        onDelete,
+        onEdit
+    }), [onDelete, onEdit]);
+
     React.useEffect(() => {
         if (!categories) {
             refreshCategories();
+        } else if (availableCategoryBudget === null) {
+            refreshAvailableCategoryBudget();
+        } else if (!defaultBudget) {
+            refreshDefaultBudget();
         }
+    }, [categories, availableCategoryBudget, defaultBudget]);
 
-        return () => {
-            if (deleteDialogElement) {
-                deleteDialogElement = null;
-            }
-        }
-    }, [categories]);
-
-    const onDelete = React.useMemo(() => ({
-        category: state.onDelete.category,
-        loading: state.onDelete.loading,
-        set: (category: Category) => {
-            setState(s => ({ ...s, onDelete: { ...s.onDelete, category } }));
-        },
-        initDeletion: () => {
-            if (state.onDelete.category) {
-                setState(s => ({ ...s, onDelete: { ...s.onDelete, loading: true } }));
-                deleteCategory(state.onDelete.category.id!)
-                    .then(() => {
-                        toast.push({
-                            title: 'Category removed',
-                            content: 'The category has been removed successfully',
-                            type: 'success'
-                        });
-                        refreshCategories();
-                        setState(s => ({ ...s, onDelete: { loading: false, category: null } }));
-                        toggleDeleteDialog()
-                    });
-            }
-        }
-    }), [state.onDelete, toast]);
-
-    const contextValue = React.useMemo(() => ({
-        onDelete
-    }), [onDelete]);
-
-    return <CategoriesContext.Provider value={contextValue}>
-        <Fade
-            className="categories-container"
-            from={{ opacity: 0 }}
-            animateEnter={true}
-            visible={true}>
-            <CategoriesList />
-            <CreateCategory />
-            <DeleteDialog />
-        </Fade>
-    </CategoriesContext.Provider>
+    if (categories) {
+        return <CategoriesContext.Provider value={contextValue}>
+            <Fade
+                className="categories-container"
+                from={{ opacity: 0 }}
+                animateEnter={true}
+                visible={true}>
+                <CategoriesList />
+                <CreateCategory />
+                <DeleteDialog />
+                <EditCategory />
+            </Fade>
+        </CategoriesContext.Provider>
+    }
 })
 
 export default Categories;

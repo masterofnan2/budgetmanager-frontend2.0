@@ -21,7 +21,6 @@
     }
 
     tr {
-        cursor: pointer;
         transition: background-color .3s ease-in-out;
 
         &:nth-of-type(2n) {
@@ -64,9 +63,8 @@
 }
 
 .create-category-modal {
-    width: 75%;
 
-    .create-category-modal-header{
+    .create-category-modal-header {
         border-bottom: 1px solid rgba($secondary, .5);
         padding-bottom: .5rem;
     }
@@ -142,7 +140,7 @@
 
                 .attributed-budget-circle {
                     width: 50%;
-                    margin: .5rem auto;
+                    margin: 1.5rem auto;
                 }
 
                 .attributed-budget-circle+div {
@@ -174,7 +172,7 @@
             height: 150px;
             background-color: rgba($dark, .5);
 
-            g{
+            g {
                 fill: rgba($light, .5);
             }
         }
@@ -182,7 +180,7 @@
         .category-description {
             grid-column: 6/13;
 
-            input{
+            input {
                 font-size: 1rem;
             }
         }

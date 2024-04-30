@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "../../../../../others/minicomponents/Button/Button";
-import Fade from "../../../../../others/minicomponents/Fade/Fade";
+import Fade from "../Fade/Fade";
+import Button from "../Button/Button";
 
 type Props = {
     initConfirmation: Function
@@ -9,7 +9,7 @@ type Props = {
 let interval: null | number;
 const DEFAULTCOUNTDOWN = 60;
 
-const Countdown = React.memo((props: Props) => {
+const ResendEmailCountdown = React.memo((props: Props) => {
     const { initConfirmation } = props;
 
     const [countdown, setCountDown] = React.useState(DEFAULTCOUNTDOWN);
@@ -57,4 +57,4 @@ const Countdown = React.memo((props: Props) => {
     </div>
 });
 
-export default Countdown;
+export default ResendEmailCountdown;

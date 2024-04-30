@@ -1,5 +1,5 @@
 import React from "react";
-import getElementProps from "../../helpers/getElementProps";
+import getElementProps from "../../globals/helpers/getElementProps";
 
 const VISIBLE = 1;
 const HIDDEN = 2;

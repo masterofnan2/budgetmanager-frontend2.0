@@ -1,4 +1,4 @@
-import getElementProps from "../../helpers/getElementProps";
+import getElementProps from "../../globals/helpers/getElementProps";
 
 type Props = {
     children: any,

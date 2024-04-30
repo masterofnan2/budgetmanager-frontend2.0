@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import Button from "../../../../../others/minicomponents/Button/Button";
 import FloatingForm from "../../../../../others/minicomponents/FloatingForm/FloatingForm";
 import React, { FormEvent } from "react";
-import getFormData from "../../../../../others/helpers/getFormData";
+import getFormData from "../../../../../others/globals/helpers/getFormData";
 import { verifyEmailConformity } from "../../../../../others/api/functions/actions";
-import handleInputBlur from "../../../../../others/helpers/handleInputBlur";
-import getValidationMessages from "../../../../../others/helpers/getValidationMessages";
+import handleInputBlur from "../../../../../others/globals/helpers/handleInputBlur";
+import getValidationMessages from "../../../../../others/globals/helpers/getValidationMessages";
 
 const nextStepNumber = 2;
 

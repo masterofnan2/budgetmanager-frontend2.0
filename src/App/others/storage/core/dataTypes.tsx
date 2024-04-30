@@ -1,4 +1,3 @@
-import { Budget, Category, Cycle, User } from "../../constants/dataTypes"
 import { TypeStorage } from "../storage"
 
 export type Map = {
@@ -15,7 +14,7 @@ export type Action = {
 
 export type StorageReducer = (state: TypeStorage, action: Action) => TypeStorage;
 
-export type Selector = (state: TypeStorage) => User | Budget | Cycle | Category | boolean | null;
+export type Selector = (state: TypeStorage) => any;
 
 export type StorageProviderProps = {
     children: any

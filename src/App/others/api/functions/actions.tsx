@@ -1,3 +1,4 @@
+import toFormData from "../../globals/helpers/toFormData";
 import fetchApi, { Response } from "./fetchApi"
 
 export const logIn = (payload: { email: string, password: string }): Promise<Response> => {
@@ -62,4 +63,27 @@ export const resetPassword = (payload: {
     token: string
 }) => {
     return fetchApi('/auth/reset-password', "POST", payload);
+}
+
+export const createCategory = (payload: {
+    name: string,
+    description: string,
+    budget: number,
+    image: File | null
+}) => {
+    return fetchApi('/category/create', "POST", toFormData(payload));
+}
+
+export const updateCategory = (payload: {
+    id: number,
+    name: string,
+    description: string,
+    budget: number,
+    image: File | null
+}) => {
+    return fetchApi('/category/edit', 'POST', toFormData(payload));
+}
+
+export const getAvailableCategoryBudget = () => {
+    return fetchApi('/budget/category/available');
 }

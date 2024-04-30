@@ -3,17 +3,25 @@ type Object = {
 };
 
 export type Response = {
-    data: Object|null,
+    data: Object | null,
     error: any,
     status: number
+};
+
+type Method = 'GET' | 'POST' | 'UPDATE' | 'PUT' | 'DELETE'
+
+type Options = {
+    method: Method,
+    headers: HeadersInit,
+    body?: string | FormData
 };
 
 const apiUrl = 'http://127.0.0.1:8000/api';
 
 const fetchApi = async (
     uri: string,
-    method?: 'GET' | 'POST' | 'UPDATE' | 'PUT' | 'DELETE',
-    payload?: Object | null) => {
+    method?: Method,
+    payload?: Object | FormData) => {
 
     let returnObject: Response = {
         data: null,
@@ -21,12 +29,14 @@ const fetchApi = async (
         status: 200
     };
 
-    let options = {};
+    const isFormData = payload instanceof FormData;
+
+    const accept = 'application/json';
+    const contentType = isFormData ? 'multipart/form-data' : accept;
 
     const headers: HeadersInit = {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Credentials: 'include'
+        Accept: accept,
+        'Content-Type': contentType
     };
 
     const authToken = localStorage.getItem("authToken");
@@ -40,10 +50,13 @@ const fetchApi = async (
         method = 'GET'
     }
 
-    options = { ...options, method, headers };
+    const options: Options = {
+        method,
+        headers,
+    };
 
     if (method !== "GET" && payload) {
-        options = { ...options, body: JSON.stringify(payload) };
+        options.body = isFormData ? payload : JSON.stringify(payload);
     }
 
     try {
@@ -55,6 +68,7 @@ const fetchApi = async (
         } else {
             returnObject = { ...returnObject, data: responseData };
         }
+        
         returnObject = { ...returnObject, status: response.status };
 
     } catch (e: any) {

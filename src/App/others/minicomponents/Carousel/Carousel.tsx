@@ -7,6 +7,11 @@ type Props = {
     onActiveChange?: Function
 }
 
+export type CarouselRef = {
+    jumpTo: Function,
+    active: number
+};
+
 const Carousel = React.forwardRef((props: Props, ref: any) => {
     const { children, withCarouselList = false, cycle, onActiveChange } = props;
 

@@ -1,5 +1,5 @@
 import { Budget } from "../../../constants/dataTypes";
-import { SETDEFAULTBUDGET, SETBUDGETBALANCE } from "./actionTypes";
+import { SETDEFAULTBUDGET, SETBUDGETBALANCE, SETAVAILABLECATEGORYBUDGET } from "./actionTypes";
 
 export const setDefaultBudget = (budget: Budget) => ({
     type: SETDEFAULTBUDGET,
@@ -9,4 +9,9 @@ export const setDefaultBudget = (budget: Budget) => ({
 export const setBudgetBalance = (budget: Budget) => ({
     type: SETBUDGETBALANCE,
     payload: budget
+});
+
+export const setAvailableCategoryBudget = (amount: number) => ({
+    type: SETAVAILABLECATEGORYBUDGET,
+    payload: amount
 });

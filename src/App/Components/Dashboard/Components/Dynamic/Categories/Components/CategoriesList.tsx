@@ -4,15 +4,21 @@ import Button from "../../../../../../others/minicomponents/Button/Button";
 import Icon from "../../../../../../others/minicomponents/Icon/Icon";
 import SmallText from "../../../../../../others/minicomponents/SmallText/SmallText";
 import useSelector from "../../../../../../others/storage/core/useSelector";
-import { toggleDeleteDialog, useDeleteCategory } from "../Categories";
+import { toggleDeleteDialog, toggleEditDialog, useDeleteCategory, useEditCategory } from "../Categories";
 
 const CategoriesList = React.memo(() => {
     const categories = useSelector(state => state.category) as Category[];
-    const { set } = useDeleteCategory();
+    const onDelete = useDeleteCategory();
+    const onEdit = useEditCategory();
 
     const handleDelete = React.useCallback((category: Category) => {
-        set(category);
+        onDelete.set(category);
         toggleDeleteDialog();
+    }, [onDelete.set]);
+
+    const handleEdit = React.useCallback((category: Category) => {
+        onEdit.set(category);
+        toggleEditDialog();
     }, []);
 
     if (categories) {
@@ -44,7 +50,8 @@ const CategoriesList = React.memo(() => {
                             <td>
                                 <Button
                                     type="button"
-                                    className="btn">
+                                    className="btn"
+                                    onClick={() => handleEdit(category)}>
                                     <Icon>pencil</Icon>
                                 </Button>
                             </td>

@@ -1,11 +1,11 @@
 import React, { FormEvent } from "react";
-import FloatingForm from "../../../../others/minicomponents/FloatingForm/FloatingForm";
+import { PasswordFloatingForm } from "../../../../others/minicomponents/FloatingForm/FloatingForm";
 import Button from "../../../../others/minicomponents/Button/Button";
 import { useParams } from "react-router-dom";
-import getFormData from "../../../../others/helpers/getFormData";
-import getValidationMessages from "../../../../others/helpers/getValidationMessages";
+import getFormData from "../../../../others/globals/helpers/getFormData";
+import getValidationMessages from "../../../../others/globals/helpers/getValidationMessages";
 import { resetPassword } from "../../../../others/api/functions/actions";
-import handleInputBlur from "../../../../others/helpers/handleInputBlur";
+import handleInputBlur from "../../../../others/globals/helpers/handleInputBlur";
 import useDispatch from "../../../../others/storage/core/useDispatch";
 import { setAuth } from "../../../../others/storage/parts/user/actions";
 
@@ -47,7 +47,8 @@ const ResetPassword = React.memo(() => {
                         return newState;
                     })
 
-                    if (response.data?.user) {
+                    if (response.data?.user && response.data?.token) {
+                        localStorage.setItem('authToken', response.data.token);
                         dispatch(setAuth(response.data.user));
                     }
                 })
@@ -62,7 +63,7 @@ const ResetPassword = React.memo(() => {
     if (token) {
         return <form className="reset-password-container" onSubmit={handleSubmit}>
             <h5 className="text-secondary display-3">Finalizing your password reset</h5>
-            <FloatingForm
+            <PasswordFloatingForm
                 placeholder="password"
                 options={{
                     icon: 'password-field',
@@ -71,7 +72,7 @@ const ResetPassword = React.memo(() => {
                 name="password"
                 onBlur={handleBlur} />
 
-            <FloatingForm
+            <PasswordFloatingForm
                 placeholder="password confirmation"
                 options={{
                     icon: 'password-field',

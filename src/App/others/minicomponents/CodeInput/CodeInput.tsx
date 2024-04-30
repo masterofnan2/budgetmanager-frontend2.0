@@ -1,5 +1,5 @@
 import React from "react";
-import generateArray from "../../helpers/generateArray";
+import generateArray from "../../globals/helpers/generateArray";
 
 type Props = {
     length?: number | 6,

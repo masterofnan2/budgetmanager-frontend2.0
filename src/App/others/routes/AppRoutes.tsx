@@ -45,7 +45,7 @@ const AppRoutes = React.memo(() => {
                     <Route element={<Login />} path="login" />
                     <Route element={<Signup />} path="signup" />
                     <Route element={<PasswordForgotten />} path="password-forgotten" />
-                    <Route element={<ResetPassword />} path="password-reset/:token" />
+                    <Route element={<ResetPassword />} path="reset-password/:token" />
                 </Route>
             </Route>
         </Routes>

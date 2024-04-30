@@ -1,11 +1,10 @@
 import React from "react";
 import { User } from "../../../../others/constants/dataTypes";
 import useSelector from "../../../../others/storage/core/useSelector";
-import Countdown from "./Components/Countdown";
 import { makeEmailConfirmation, matchConfirmationCode } from "../../../../others/api/functions/actions";
-// import { useNavigate } from "react-router-dom";
 import CodeInput from "../../../../others/minicomponents/CodeInput/CodeInput";
 import useAuthenticateUser from "../../../../others/api/hooks/useAuthenticateUser";
+import ResendEmailCountdown from "../../../../others/minicomponents/ResendEmailCountdown/ResendEmailCountdown";
 
 const Confirmation = () => {
     const [state, setState] = React.useState({
@@ -48,8 +47,9 @@ const Confirmation = () => {
                 onComplete={handleComplete}
                 length={6}
                 error={state.error}
-                />
-            <Countdown initConfirmation={makeEmailConfirmation} />
+            />
+            
+            <ResendEmailCountdown initConfirmation={makeEmailConfirmation} />
         </form>
     }
 }

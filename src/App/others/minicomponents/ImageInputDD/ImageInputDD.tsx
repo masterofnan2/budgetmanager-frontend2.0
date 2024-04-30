@@ -8,8 +8,8 @@ export type Image = {
 
 type Props = {
     size?: 'lg' | 'md' | 'sm',
-    addImage: (image: Image) => {},
-    removeImage: (url: string) => {},
+    addImage: (image: Image) => void,
+    removeImage: (url: string) => void
     imageUrl?: string
 }
 
@@ -72,7 +72,13 @@ const ImageInputDD = React.memo(({ size = 'lg', addImage, removeImage, imageUrl 
                 onDragOver={handleAllowDrop}
                 onDrop={handleChange}
                 onClick={(e: any) => e.currentTarget.children[0]?.click()}>
-                <input type="file" hidden={true} name="productImage" onChange={handleChange} accept="image/*" />
+                    
+                <input
+                    type="file"
+                    hidden={true}
+                    onChange={handleChange}
+                    accept="image/*" />
+
                 <div className="dragAndDropDescription">
                     <div className="d-flex justify-content-center">
                         <Icon className={"text-light icon-" + componentSizes[size]}>image</Icon>

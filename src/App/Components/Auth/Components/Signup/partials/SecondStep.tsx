@@ -3,10 +3,10 @@ import { Object } from "../../../../../others/constants/dataTypes";
 import Button from "../../../../../others/minicomponents/Button/Button";
 import FloatingForm, { PasswordFloatingForm } from "../../../../../others/minicomponents/FloatingForm/FloatingForm";
 import Icon from "../../../../../others/minicomponents/Icon/Icon";
-import getFormData from "../../../../../others/helpers/getFormData";
+import getFormData from "../../../../../others/globals/helpers/getFormData";
 import { signUp } from "../../../../../others/api/functions/actions";
-import handleInputBlur from "../../../../../others/helpers/handleInputBlur";
-import getValidationMessages from "../../../../../others/helpers/getValidationMessages";
+import handleInputBlur from "../../../../../others/globals/helpers/handleInputBlur";
+import getValidationMessages from "../../../../../others/globals/helpers/getValidationMessages";
 
 const previousStep = 1;
 

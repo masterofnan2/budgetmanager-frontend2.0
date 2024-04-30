@@ -7,6 +7,8 @@ import Modal, { toggle } from "../../../../../../others/minicomponents/Modal/Mod
 import { Budget } from "../../../../../../others/constants/dataTypes";
 import { useRefreshDefaultBudget } from "../../../../../../others/api/hooks/useRefreshDefaultBudget";
 import { useRefreshBalance } from "../../../../../../others/api/hooks/useRefreshBalance";
+import PriceInput from "../../../../../../others/minicomponents/PriceInput/PriceInput";
+import useRefreshAvailableCategoryBudget from "../../../../../../others/api/hooks/useRefreshAvailableCategoryBudget";
 
 const MAXBUDGET = 99_999_999;
 const DISCARDDIALOGID = "discard-dialog";
@@ -22,8 +24,10 @@ const InitialBudget = React.memo(() => {
     });
 
     const inputRef = React.createRef() as React.RefObject<HTMLInputElement>;
+
     const refreshDefaultBudget = useRefreshDefaultBudget();
     const refreshBalance = useRefreshBalance();
+    const refreshAvailableCategoryBudget = useRefreshAvailableCategoryBudget();
 
     React.useEffect(() => {
         !budget && refreshDefaultBudget();
@@ -44,17 +48,12 @@ const InitialBudget = React.memo(() => {
     }, []);
 
     const toggleEditMode = React.useCallback(() => {
-        setState(s => ({ ...s, editMode: !s.editMode, inputValue: budget?.amount!}));
+        setState(s => ({ ...s, editMode: !s.editMode, inputValue: budget?.amount! }));
     }, [budget]);
 
-    const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.target;
-
-        const striped = value.replace(/[^0-9]/g, '');
-        const intValue = parseInt(striped);
-
-        if (!isNaN(intValue) && intValue < MAXBUDGET) {
-            setState(s => ({ ...s, inputValue: intValue }));
+    const handleChange = React.useCallback((value: number) => {
+        if (value < MAXBUDGET) {
+            setState(s => ({ ...s, inputValue: value }));
         }
     }, []);
 
@@ -66,6 +65,7 @@ const InitialBudget = React.memo(() => {
                     if (!response.error) {
                         refreshDefaultBudget();
                         refreshBalance();
+                        refreshAvailableCategoryBudget();
                     }
                     setState(s => ({ ...s, editMode: false, loading: false }));
                 });
@@ -107,12 +107,12 @@ const InitialBudget = React.memo(() => {
                 </div>
 
                 <div className="budget-amount-input d-flex justify-content-center gap-1">
-                    <input
+                    <PriceInput
                         type='text'
                         className="edit-initial-budget"
                         disabled={!state.editMode}
                         onChange={handleChange}
-                        value={amountString}
+                        value={amountString!}
                         ref={inputRef}
                         onBlur={handleBlur} />
                 </div>
